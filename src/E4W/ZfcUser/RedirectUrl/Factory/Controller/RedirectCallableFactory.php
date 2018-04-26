@@ -3,25 +3,30 @@
 namespace E4W\ZfcUser\RedirectUrl\Factory\Controller;
 
 use E4W\ZfcUser\RedirectUrl\Controller\RedirectCallback;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class RedirectCallableFactory implements FactoryInterface
 {
-
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    /**
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param null|array $options
+     * @return RedirectCallback
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /* @var RouteInterface $router */
-        $router = $serviceLocator->get('Router');
+        /* @var \Zend\Router\RouteInterface $router */
+        $router = $container->get('Router');
 
-        /* @var Application $application */
-        $application = $serviceLocator->get('Application');
+        /* @var \Zend\Mvc\Application $application */
+        $application = $container->get('Application');
 
         /* @var \ZfcUser\Options\ModuleOptions $zfcUserOtions */
-        $zfcUserOtions = $serviceLocator->get('zfcuser_module_options');
+        $zfcUserOtions = $container->get('zfcuser_module_options');
 
         /* @var \E4W\ZfcUser\RedirectUrl\Options\ModuleOptions $options */
-        $options = $serviceLocator->get('E4W\ZfcUser\RedirectUrl\ModuleOptions');
+        $options = $container->get('E4W\ZfcUser\RedirectUrl\ModuleOptions');
 
         return new RedirectCallback($application, $router, $zfcUserOtions, $options);
     }

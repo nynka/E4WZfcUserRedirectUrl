@@ -19,7 +19,7 @@
 namespace E4W\ZfcUser\RedirectUrl\Controller;
 
 use Zend\Mvc\Application;
-use Zend\Mvc\Router\RouteInterface;
+use Zend\Router\RouteInterface;
 use Zend\Mvc\Router\Exception;
 use Zend\Http\PhpEnvironment\Response;
 use ZfcUser\Options\ModuleOptions as ZfcUserOptions;

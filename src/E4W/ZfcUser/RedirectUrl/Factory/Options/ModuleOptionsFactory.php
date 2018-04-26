@@ -3,20 +3,20 @@
 namespace E4W\ZfcUser\RedirectUrl\Factory\Options;
 
 use E4W\ZfcUser\RedirectUrl\Options\ModuleOptions;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 class ModuleOptionsFactory implements FactoryInterface
 {
     /**
-     * Create options
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return SocialService
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param null|array $options
+     * @return ModuleOptions
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $serviceLocator->get('Config');
+        $config = $container->get('Config');
 
         $service = new ModuleOptions($config['e4wzfcuserredirecturl']);
         return $service;
